@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GIF Safety Checker</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      width: 300px;
+      padding: 20px;
+      text-align: center;
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h3>GIF Safety Checker</h3>
+  <input type="text" id="gifUrl" placeholder="Enter GIF URL" />
+  <br />
+  <button id="checkButton">Check GIF</button>
+  <div id="result"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

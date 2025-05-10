@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GIF Safety Checker</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 20px;
+      text-align: center;
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      transition: opacity 1s ease;
+      opacity: 1;
+    }
+    .hidden {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <h2>GIF Safety Checker</h2>
+  <input type="text" id="gifUrl" placeholder="Paste GIF URL here" />
+  <br />
+  <button onclick="checkGif()">Check GIF</button>
+  <div id="result"></div>
+
+  <script>
+    async function checkGif() {
+      const url = document.getElementById("gifUrl").value;
+      const resultDiv = document.getElementById("result");
+      
+      // Reset any hidden state
+      resultDiv.classList.remove("hidden");
+      resultDiv.textContent = "Checking...";
+
+      try {
+        const res = await fetch("http://localhost:5000/check-gif-url", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url })
+        });
+
+        const data = await res.json();
+        resultDiv.textContent = data.message;
+
+        // Hide the message after 5 seconds with fade-out
+        setTimeout(() => {
+          resultDiv.classList.add("hidden");
+        }, 5000);
+
+      } catch (err) {
+        resultDiv.textContent = "Something went wrong. Check your server.";
+      }
+    }
+  </script>
+</body>
+</html>
